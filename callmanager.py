@@ -8,7 +8,10 @@ import threading
 
 class Call(pj.Call):
     def onCallState(self, prm):
-        print("bla")
+        call_info = self.getInfo()
+        if call_info.state == pj.PJSIP_INV_STATE_DISCONNECTED:
+            del_call_scheduled = True
+
 
     def onCallMediaState(self, prm):
         print("bla")
@@ -23,6 +26,10 @@ class Account(pj.Account):
 
     def onIncomingCall(self, prm):
         print("[CALL] incoming")
+        call = Call(self, prm.callId)
+        op = pj.CallOpParam()
+        op.statusCode = pj.PJSIP_SC_DECLINE
+        call.hangup(op)
 
 
 class CallManager:
