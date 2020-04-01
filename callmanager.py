@@ -1,5 +1,9 @@
 import pjsua2 as pj
 import logging
+import signal
+import time
+import random
+import threading
 
 
 class Call(pj.Call):
@@ -12,14 +16,13 @@ class Call(pj.Call):
 
 class Account(pj.Account):
     def onRegState(self, prm):
-        print("***OnRegState: " + prm.reason)
+        print("[ACCOUNT] onRegState")
+
+    def onRegStarted(self, prm):
+        print("[ACCOUNT] regstarted")
 
     def onIncomingCall(self, prm):
-        call = Call(self, prm.callId)
-        op = pj.CallOpParam()
-        op.statusCode = pj.PJSIP_SC_DECLINE
-        call.hangup(op)
-        del call
+        print("[CALL] incoming")
 
 
 class CallManager:
@@ -27,17 +30,20 @@ class CallManager:
     def __init__(self):
         self.call = None
         self.ep = None
+        self.account = None
 
         self.account_config = self.getConfig("AccountConfig.json", pj.AccountConfig())
         if not self.account_config:
             # AccountConfig file not found, create dummy file
             self.account_config = pj.AccountConfig()
-            self.account_config.idUri = "sip:test@pjsip.org"
-            self.account_config.regConfig.registrarUri = "sip:pjsip.org"
-            cred = pj.AuthCredInfo("digest", "*", "usrntest", 0, "pwtest")
-            self.account_config.sipConfig.authCreds.append(cred)
+
+            self.account_config.idUri = "SIP:SOMEONE@SIP.EXAMPLE.COM"
+            self.account_config.regConfig.registrarUri = "SIP:SIP.EXAMPLE.COM"
+            self.account_config.sipConfig.authCreds.push_back(pj.AuthCredInfo("digest", "*", "USERNAME", 0, "PASSWORD"))
+
             self.account_config.natConfig.sipStunUse = pj.PJSUA_STUN_USE_DEFAULT
             self.account_config.natConfig.iceEnabled = True
+
             self.saveConfig(self.account_config, "AccountConfig.json")
         self.endpoint_config = self.getConfig("EPConfig.json", pj.EpConfig())
         if not self.endpoint_config:
@@ -56,9 +62,10 @@ class CallManager:
             jdoc = pj.JsonDocument()
             jdoc.loadFile(filename)
             jdoc.readObject(pjobject)
+            return pjobject
         except Exception as e:
             logging.exception(e)
-        return pjobject
+            return None
 
     def saveConfig(self, pjobject, filename):
         jdoc = pj.JsonDocument()
@@ -69,6 +76,9 @@ class CallManager:
         try:
             self.ep = pj.Endpoint()
             self.ep.libCreate()
+            # set threadcnt to zero, due to python not liking multiple processes or such
+            self.endpoint_config.uaConfig.threadCnt = 0
+            self.endpoint_config.uaConfig.setMainThreadOnly = True
             self.ep.libInit(self.endpoint_config)
         except Exception as e:
             logging.exception(e)
@@ -80,10 +90,16 @@ class CallManager:
             logging.exception(e)
 
         try:
-            acc = Account()
-            acc.create(self.account_config)
+            self.account = Account()
+            #acc = pj.Account()
+            self.account.create(self.account_config)
         except Exception as e:
             logging.exception(e)
+
+        #self.run()
+
+    def run(self):
+        return self.ep.libHandleEvents(100)
 
     def unregister(self):
         self.ep.libDestroy()
