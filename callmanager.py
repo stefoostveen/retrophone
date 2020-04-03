@@ -1,35 +1,12 @@
 import pjsua2 as pj
 import logging
+import account as acc
+import callmanager_events as cme
+import event
 import signal
 import time
 import random
 import threading
-
-
-class Call(pj.Call):
-    def onCallState(self, prm):
-        call_info = self.getInfo()
-        if call_info.state == pj.PJSIP_INV_STATE_DISCONNECTED:
-            del_call_scheduled = True
-
-
-    def onCallMediaState(self, prm):
-        print("bla")
-
-
-class Account(pj.Account):
-    def onRegState(self, prm):
-        print("[ACCOUNT] onRegState")
-
-    def onRegStarted(self, prm):
-        print("[ACCOUNT] regstarted")
-
-    def onIncomingCall(self, prm):
-        print("[CALL] incoming")
-        call = Call(self, prm.callId)
-        op = pj.CallOpParam()
-        op.statusCode = pj.PJSIP_SC_DECLINE
-        call.hangup(op)
 
 
 class CallManager:
@@ -38,6 +15,13 @@ class CallManager:
         self.call = None
         self.ep = None
         self.account = None
+        self.callbacks = {
+                cme.CM_CALL_INCOMING: [],
+                cme.CM_CALL_ENDED: [],
+                cme.CM_CALL_ACCEPTED: [],
+                cme.CM_ACCOUNT_REG_START: [],
+                cme.CM_ACCOUNT_REG_COMPLETE: []
+        }
 
         self.account_config = self.getConfig("AccountConfig.json", pj.AccountConfig())
         if not self.account_config:
@@ -97,16 +81,22 @@ class CallManager:
             logging.exception(e)
 
         try:
-            self.account = Account()
+            self.account = acc.Account()
             #acc = pj.Account()
             self.account.create(self.account_config)
+            self.account.callbacks = self.callbacks
         except Exception as e:
             logging.exception(e)
 
         #self.run()
 
-    def run(self):
-        return self.ep.libHandleEvents(100)
+    def accept_call(self, call):
+        if not call:
+            call = self.call
+        if call:
+            op = pj.CallOpParam()
+            op.statusCode = pj.PJSIP_SC_OK
+            call.answer(op)
 
     def unregister(self):
         self.ep.libDestroy()
@@ -117,3 +107,20 @@ class CallManager:
     def end_calls(self):
         self.ep.hangupAllCalls()
         self.call = None
+
+    def subscribe(self, callback, event_t):
+        if self.account:
+            self.account.callbacks[event_t].append(callback)
+        self.callbacks[event_t].append(callback)
+
+    def notify(self, event_t, **attrs):
+        e = event.Event()
+        e.source = self
+        for k, v in attrs.items():
+            setattr(e, k, v)
+        for fn in self.callbacks[event_t]:
+            fn(e)
+
+    def run(self):
+        return self.ep.libHandleEvents(100)
+
