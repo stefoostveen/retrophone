@@ -33,11 +33,11 @@ class App:
         self.ringer.stop()
 
     def incoming_call(self, event):
-        # TODO: ringing is blocked by something. Audio stuttering
+        # TODO: ringing is blocked by something. Audio stuttering -- edit: I think this is caused by the thread calling this method. It's actually called via a callback
         print("Starting ringing!")
-        thread = threading.Thread(target=self.ringer.ring)
-        thread.start()
-        #self.ringer.ring()
+        #thread = threading.Thread(target=self.ringer.ring)
+        #thread.start()
+        self.ringer.ring()
 
     def keyboardInterruptHandler(self, signal, frame):
         print("KeyboardInterrupt (ID: {}) has been caught. Cleaning up...".format(signal))
