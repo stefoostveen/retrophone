@@ -12,7 +12,7 @@ import threading
 class CallManager:
 
     def __init__(self):
-        self.call = None
+        # self.call = None
         self.ep = None
         self.account = None
         self.callbacks = {
@@ -82,21 +82,21 @@ class CallManager:
 
         try:
             self.account = acc.Account()
-            #acc = pj.Account()
+            # acc = pj.Account()
             self.account.create(self.account_config)
             self.account.callbacks = self.callbacks
+            self.account.subscribe(self.on_incoming_call, cme.CM_CALL_INCOMING)
         except Exception as e:
             logging.exception(e)
 
-        #self.run()
-
-    def accept_call(self, call):
-        if not call:
-            call = self.call
-        if call:
+    def accept_call(self):
+        if self.account.call:
             op = pj.CallOpParam()
             op.statusCode = pj.PJSIP_SC_OK
-            call.answer(op)
+            self.account.call.answer(op)
+
+    def on_incoming_call(self, cbe):
+        pass
 
     def unregister(self):
         self.ep.libDestroy()
@@ -106,7 +106,7 @@ class CallManager:
 
     def end_calls(self):
         self.ep.hangupAllCalls()
-        self.call = None
+        #self.call = None
 
     def subscribe(self, callback, event_t):
         if self.account:
