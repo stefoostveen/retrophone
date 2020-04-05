@@ -36,11 +36,13 @@ class Call(pj.Call):
         ci = self.getInfo()
         for mi in ci.media:
             if mi.type == pj.PJMEDIA_TYPE_AUDIO and (mi.status == pj.PJSUA_CALL_MEDIA_ACTIVE or mi.status == pj.PJSUA_CALL_MEDIA_REMOTE_HOLD):
+                print("MEDIA LOOP")
+                epi = pj.Endpoint_instance()
                 m = self.getMedia(mi.index)
                 am = pj.AudioMedia.typecastFromMedia(m)
                 # connect ports
-                pj.Endpoint.instance.audDevManager().getCaptureDevMedia().startTransmit(am)
-                am.startTransmit(pj.Endpoint.instance.audDevManager().getPlaybackDevMedia())
+                epi.audDevManager().getCaptureDevMedia().startTransmit(am)
+                am.startTransmit(epi.audDevManager().getPlaybackDevMedia())
 
                 # if mi.status == pj.PJSUA_CALL_MEDIA_REMOTE_HOLD and not self.onhold:
                 #     self.chat.addMessage(None, "'%s' sets call onhold" % (self.peerUri))

@@ -7,6 +7,7 @@ import signal
 import time
 import random
 import threading
+import os
 
 
 class CallManager:
@@ -22,8 +23,11 @@ class CallManager:
                 cme.CM_ACCOUNT_REG_START: [],
                 cme.CM_ACCOUNT_REG_COMPLETE: []
         }
+        confdir = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+        confdir = confdir + "/conf/"
 
-        self.account_config = self.getConfig("AccountConfig.json", pj.AccountConfig())
+
+        self.account_config = self.getConfig(confdir+"AccountConfig.json", pj.AccountConfig())
         if not self.account_config:
             # AccountConfig file not found, create dummy file
             self.account_config = pj.AccountConfig()
@@ -35,18 +39,18 @@ class CallManager:
             self.account_config.natConfig.sipStunUse = pj.PJSUA_STUN_USE_DEFAULT
             self.account_config.natConfig.iceEnabled = True
 
-            self.saveConfig(self.account_config, "AccountConfig.json")
-        self.endpoint_config = self.getConfig("EPConfig.json", pj.EpConfig())
+            self.saveConfig(self.account_config, confdir+"AccountConfig.json")
+        self.endpoint_config = self.getConfig(confdir+"EPConfig.json", pj.EpConfig())
         if not self.endpoint_config:
             # EPConfig file not found, create dummy file
             self.endpoint_config = pj.EpConfig()
-            self.saveConfig(self.endpoint_config, "EPConfig.json")
-        self.transport_config = self.getConfig("TransportConfig.json", pj.TransportConfig())
+            self.saveConfig(self.endpoint_config, confdir+"EPConfig.json")
+        self.transport_config = self.getConfig(confdir+"TransportConfig.json", pj.TransportConfig())
         if not self.transport_config:
             # TransportConfig file not found, create dummy file
             self.transport_config = pj.TransportConfig()
             self.transport_config.port = 5060
-            self.saveConfig(self.transport_config, "TransportConfig.json")
+            self.saveConfig(self.transport_config, confdir+"TransportConfig.json")
 
     def getConfig(self, filename, pjobject):
         try:
@@ -90,12 +94,16 @@ class CallManager:
             logging.exception(e)
 
     def accept_call(self):
+        print("[CALL] Trying to accept call")
         if self.account.call:
             op = pj.CallOpParam()
             op.statusCode = pj.PJSIP_SC_OK
             self.account.call.answer(op)
 
     def on_incoming_call(self, cbe):
+        pass
+
+    def on_media_state_change(self, ci=None):
         pass
 
     def unregister(self):
@@ -123,5 +131,5 @@ class CallManager:
 
     def run(self):
         # todo: define minimums. Around 10 or 20 ms seems fine in order to reduce audio lag.
-        return self.ep.libHandleEvents(20)
+        return self.ep.libHandleEvents(10)
 
