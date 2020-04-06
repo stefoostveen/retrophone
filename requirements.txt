@@ -1,4 +1,1 @@
-numpy
-soundfile
-sounddevice
 pjsua2===2.9-svn
