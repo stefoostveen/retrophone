@@ -132,4 +132,3 @@ class CallManager:
     def run(self):
         # todo: define minimums. Around 10 or 20 ms seems fine in order to reduce audio lag.
         return self.ep.libHandleEvents(10)
-
