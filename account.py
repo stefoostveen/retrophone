@@ -19,8 +19,11 @@ class Account(pj.Account):
 
     def onRegState(self, prm):
         print("[ACCOUNT] onRegState")
+        print("[ACCOUNT] "+str(prm.status) + " "+str(prm.code)+" "+str(prm.reason))
+        self.notify(cme.CM_ACCOUNT_REG_COMPLETE, status=prm.status, code=prm.code, reason=prm.reason)
 
     def onRegStarted(self, prm):
+        self.notify(cme.CM_ACCOUNT_REG_START)
         print("[ACCOUNT] regstarted")
 
     def onIncomingCall(self, prm):

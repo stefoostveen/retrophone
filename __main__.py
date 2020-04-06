@@ -5,10 +5,16 @@ import threading
 import logging
 import ringer
 import callmanager_events as cme
+import displaymanager
+import scene as scrn
 
 
 class App:
     def __init__(self):
+        self.displaymgr = displaymanager.DisplayManager()
+        screen = scrn.ImgScreen("reg_start")
+        self.displaymgr.set(screen)
+
         signal.signal(signal.SIGINT, self.keyboardInterruptHandler)
         self.callmgr = callmanager.CallManager()
         self.callmgr.subscribe(self.incoming_call, cme.CM_CALL_INCOMING)
@@ -18,12 +24,27 @@ class App:
         self.ringer = ringer.Ringer()
 
         self.callmgr.register()
+        self.server = ["http://", "phone.local"]
 
         print("Registration phase finished")
         self.runapp()
 
     def shutdown(self):
         self.callmgr.unregister()
+
+    def registration_complete(self, event):
+        if event.code == 403:
+            screen = scrn.ImgScreen("reg_perm_fail")
+            self.displaymgr.set(screen)
+            screen = scrn.FaultScreen("Registration failed", "Wrong username or password supplied. Visit "+self.server[0] + self.server[1] + " to resolve.")
+            self.displaymgr.show(screen)
+        elif event.code == 200:
+            self.displaymgr.show_home_screen()
+            screen = scrn.SuccessScreen("Registration complete", "Now able to make and accept calls.")
+            self.displaymgr.show(screen)
+        else:
+            screen = scrn.FaultScreen("Registration error", "Unknown connection error. Visit "+self.server[0] + self.server[1] + " to resolve.")
+            self.displaymgr.show(screen)
 
     def call_accepted(self, event):
         self.ringer.stop()
