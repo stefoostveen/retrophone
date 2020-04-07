@@ -6,14 +6,14 @@ import logging
 import ringer
 import callmanager_events as cme
 import displaymanager
-import scene as scrn
+import scene as scn
 
 
 class App:
     def __init__(self):
         self.displaymgr = displaymanager.DisplayManager()
-        screen = scrn.ImgScreen("reg_start")
-        self.displaymgr.set(screen)
+        scene = scn.Scene().add_animation("reg_start")
+        self.displaymgr.set(scene)
 
         signal.signal(signal.SIGINT, self.keyboardInterruptHandler)
         self.callmgr = callmanager.CallManager()
@@ -34,16 +34,16 @@ class App:
 
     def registration_complete(self, event):
         if event.code == 403:
-            screen = scrn.ImgScreen("reg_perm_fail")
+            screen = scn.Scene().add_animation("reg_perm_fail")
             self.displaymgr.set(screen)
-            screen = scrn.FaultScreen("Registration failed", "Wrong username or password supplied. Visit "+self.server[0] + self.server[1] + " to resolve.")
+            screen = scn.FaultScene("Wrong username or password supplied. Visit "+self.server[0] + self.server[1] + " to resolve.")
             self.displaymgr.show(screen)
         elif event.code == 200:
             self.displaymgr.show_home_screen()
-            screen = scrn.SuccessScreen("Registration complete", "Now able to make and accept calls.")
+            screen = scn.SuccessScene("Now able to make and accept calls.")
             self.displaymgr.show(screen)
         else:
-            screen = scrn.FaultScreen("Registration error", "Unknown connection error. Visit "+self.server[0] + self.server[1] + " to resolve.")
+            screen = scn.FaultScene("Unknown connection error. Visit "+self.server[0] + self.server[1] + " to resolve.")
             self.displaymgr.show(screen)
 
     def call_accepted(self, event):

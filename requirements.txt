@@ -1,1 +1,5 @@
+numpy
+soundfile
+sounddevice
+Pillow
 pjsua2===2.9-svn
