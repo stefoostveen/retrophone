@@ -11,7 +11,7 @@ import scene as scn
 
 class App:
     def __init__(self):
-        self.displaymgr = displaymanager.DisplayManager()
+        self.displaymgr = displaymanager.DisplayManager(24,23,0,0)
         scene = scn.Scene().add_animation("reg_start")
         self.displaymgr.set(scene)
 
