@@ -33,7 +33,7 @@ class Account(pj.Account):
         op.statusCode = pj.PJSIP_SC_RINGING
         self.call.answer(op)
         self.subscribe(self.call_ended, cme.CM_CALL_ENDED)
-        self.notify(cme.CM_CALL_INCOMING, prm=prm)
+        self.notify(cme.CM_CALL_INCOMING, prm=prm, info=self.call.get_info())
 
     def startCall(self, uri):
         self.call = cl.Call(self)

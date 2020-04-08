@@ -38,12 +38,20 @@ class SuccessScene(Scene):
         self.add_animation("success", picture_duration=1000)
         self.add_text(text, picture_duration=3000)
 
+class EmptyScene(Scene)
+    def __init__(self, text):
+        Scene.__init__(self)
+        pict = Picture(picture_duration = 1000)
+        pict.create_empty()
+        self.pictures.append(pict)
 
 class Picture:
     def __init__(self, duration):
         self.image = None
         self.duration = duration
 
+    def create_empty(self):
+        self.image = Image.new('1', (128, 32))
 
     def createFromText(self, line):
         line_y = 5

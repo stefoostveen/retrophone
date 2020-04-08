@@ -4,30 +4,30 @@ import time
 
 class DisplayManager:
     def __init__(self):
-        self.prev_screen = None
-        self.current_screen = None
+        self.current_scene = None
+        self.backdrop_scene = None
+        self.scene_queue = []
 
-    def set(self, scene):
-        for picture in scene:
-            if scene.type == scrn.SCENE_IMAGE:
-                folder = os.path.dirname(__file__)
-                image = Image.open(scene.path).convert('1')
-                self.disp.image(image)
-                self.disp.display()
-            elif scene.type == scrn.SCENE_TEXT:
-                pass
+    def set_scene(self, scene):
+        self.backdrop_scene = scene
 
-    def _display_loop(self, scene):
+    def _service(self):
+        if self.scene_queue:
+            scene = self.scene_queue.pop()
+            self._display_scene(scene)
+        else:
+            self._display_scene(self.backdrop_scene)
+
+    def _display_scene(self, scene):
+        self.current_scene = scene
         for picture in scene.pictures:
             self.disp.image(picture.image)
             self.disp.display()
             time.sleep(picture.duration/1000)
 
 
-    def show(self, screen):
-        self.prev_screen = self.current_screen
+    def show_scene(self, scene):
+        self.scene_queue.append(scene)
 
-        pass
-
-    def show_home_screen(self):
-        pass
+    def set_home_screen(self):
+        scene = scn.EmptyScene()

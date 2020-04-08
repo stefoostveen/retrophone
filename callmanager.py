@@ -94,8 +94,8 @@ class CallManager:
             logging.exception(e)
 
     def accept_call(self):
-        print("[CALL] Trying to accept call")
         if self.account.call:
+            print("[CALL] Trying to accept call")
             op = pj.CallOpParam()
             op.statusCode = pj.PJSIP_SC_OK
             self.account.call.answer(op)
@@ -113,8 +113,8 @@ class CallManager:
         logging.exception("Not implemented")
 
     def end_calls(self):
-        self.ep.hangupAllCalls()
-        #self.call = None
+        if self.account.call:
+            self.ep.hangupAllCalls()
 
     def subscribe(self, callback, event_t):
         if self.account:
