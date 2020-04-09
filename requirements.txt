@@ -2,4 +2,6 @@ numpy
 soundfile
 sounddevice
 Pillow
+Adafruit_GPIO
+Adafruit_SSD1306
 pjsua2===2.9-svn

@@ -11,9 +11,9 @@ import scene as scn
 
 class App:
     def __init__(self):
-        self.displaymgr = displaymanager.DisplayManager(24,23,0,0)
+        self.displaymgr = displaymanager.DisplayManager(23)
         scene = scn.Scene().add_animation("reg_start")
-        self.displaymgr.set(scene)
+        self.displaymgr.set_scene(scene)
 
         signal.signal(signal.SIGINT, self.keyboardInterruptHandler)
         self.callmgr = callmanager.CallManager()
@@ -36,7 +36,7 @@ class App:
     def registration_complete(self, event):
         if event.code == 403:
             screen = scn.Scene().add_animation("reg_perm_fail")
-            self.displaymgr.set_(screen)
+            self.displaymgr.set_scene(screen)
             screen = scn.FaultScene("Wrong username or password supplied. Visit "+self.server[0] + self.server[1] + " to resolve.")
             self.displaymgr.show_scene(screen)
         elif event.code == 200:

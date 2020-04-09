@@ -16,7 +16,7 @@ class Scene:
         self.pictures.append(pict)
 
     def add_animation(self, img_folder, picture_duration=500):
-        img_folder = os.path.join(os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))), "/img/" + img_folder)
+        img_folder = os.path.join(os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))), "img/" + img_folder)
         for imgf in sorted(os.listdir(img_folder)):
             if imgf.endswith(".ppm"):
                 path = os.path.join(img_folder, imgf)
@@ -38,10 +38,10 @@ class SuccessScene(Scene):
         self.add_animation("success", picture_duration=1000)
         self.add_text(text, picture_duration=3000)
 
-class EmptyScene(Scene)
-    def __init__(self, text):
+class EmptyScene(Scene):
+    def __init__(self):
         Scene.__init__(self)
-        pict = Picture(picture_duration = 1000)
+        pict = Picture(1000)
         pict.create_empty()
         self.pictures.append(pict)
 
@@ -65,5 +65,4 @@ class Picture:
         imgdir = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
         imgdir = imgdir + "/img/"
         folder = os.path.dirname(__file__)
-        phoneimage = os.path.join(folder, "img/telephone.ppm")
-        self.image = Image.open(phoneimage).convert('1')
+        self.image = Image.open(uri).convert('1')
