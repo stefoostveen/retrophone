@@ -1,8 +1,11 @@
-import RPi.GPIO as GPIO
+import logging
+try:
+    import RPi.GPIO as GPIO
+except RuntimeError:
+    logging.warning("Could not instantiate dial")
 import threading
 import callmanager_events as cme
 import event
-import logging
 
 
 class Dial:
@@ -30,7 +33,7 @@ class Dial:
             GPIO.add_event_detect(self.PULSE_PIN, GPIO.RISING, callback=self.count_pulse, bouncetime=80)
 
             self.onhook = GPIO.input(self.HOOK_PIN)
-        except Exception as e:
+        except Exception:
             logging.warning("Could not instantiate dial")
 
     def hook_event(self):
@@ -62,7 +65,7 @@ class Dial:
 
     def add_digit(self, digit):
         # convert 10 to 0
-        if digit is 10:
+        if digit == 10:
             digit = 0
         self.dialing_timer = threading.Timer(5, self.dialing_complete)
         self.dialing_timer.start()
