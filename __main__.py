@@ -7,6 +7,7 @@ import ringer
 import callmanager_events as cme
 import displaymanager
 import scene as scn
+import dial
 
 
 class App:
@@ -14,6 +15,11 @@ class App:
         self.displaymgr = displaymanager.DisplayManager(23)
         scene = scn.Scene().add_animation("reg_start")
         self.displaymgr.set_scene(scene)
+
+        self.dialmgr = dial.Dial(25,24,18)
+        self.dialmgr.subscribe(self.hook_event, cme.DIAL_HOOK_CHANGE)
+        self.dialmgr.subscribe(self.number_received, cme.DIAL_DIALING_COMPLETE)
+        self.dialmgr.subscribe(self.digit_added_to_number, cme.DIAL_NUMBER_UPDATED)
 
         signal.signal(signal.SIGINT, self.keyboardInterruptHandler)
         self.callmgr = callmanager.CallManager()
@@ -47,17 +53,34 @@ class App:
             screen = scn.FaultScene("Unknown connection error. Visit "+self.server[0] + self.server[1] + " to resolve.")
             self.displaymgr.show_scene(screen)
 
-    def hook_on_event(self, event):
-        self.callmgr.end_calls()
-        self.displaymgr.set_home_screen()
+    def hook_event(self, event):
+        if event.on_hook:
+            self.callmgr.end_calls()
+            self.displaymgr.set_home_screen()
+        else:
+            self.callmgr.accept_call()
 
-    def hook_off_event(self, event):
-        self.callmgr.accept_call()
+    def digit_added_to_number(self, event):
+        if not self.callmgr.account.call:
+            scene = scn.Scene().add_text(str(event.phone_number))
+            self.displaymgr.set_scene(scene)
+
+    def number_received(self, event):
+        # todo: change outgoing sip address to something valid
+        if not self.callmgr.account.call:
+            self.callmgr.invoke_call("sip:"+event.phone_number+"@sip.example.com")
 
     def call_accepted(self, event):
         self.ringer.stop()
+        scene = scn.Scene()
+        scene.add_animation("call_oncall", picture_duration=200)
+        scene.add_text("On call", picture_duration=800)
+        self.displaymgr.set_scene(scene)
 
     def call_declined(self, event):
+        scene = scn.Scene().add_text("Call declined",picture_duration=2000)
+        self.displaymgr.show_scene(scene)
+        self.displaymgr.set_home_screen()
         self.ringer.stop()
 
     def incoming_call(self, event):
