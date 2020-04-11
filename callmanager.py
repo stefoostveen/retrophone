@@ -110,7 +110,8 @@ class CallManager:
         self.ep.libDestroy()
 
     def invoke_call(self, uri):
-        logging.exception("Not implemented")
+        if not self.account.call:
+            self.account.startCall(uri)
 
     def end_calls(self):
         if self.account.call:

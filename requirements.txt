@@ -4,4 +4,5 @@ sounddevice
 Pillow
 Adafruit_GPIO
 Adafruit_SSD1306
+RPi.GPIO
 pjsua2===2.9-svn
