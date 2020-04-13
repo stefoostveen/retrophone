@@ -44,7 +44,7 @@ class Dial:
             self.currentcount = 0
             self.phone_number = None
 
-        self.notify(cme.DIAL_HOOK_CHANGE, onhook=self.onhook)
+        self.notify(cme.DIAL_HOOK_CHANGE, on_hook=self.onhook)
 
     def dialing_complete(self):
         self.notify(cme.DIAL_DIALING_COMPLETE, phone_number=self.phone_number)
