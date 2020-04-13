@@ -136,7 +136,7 @@ class App:
     def keyboardInterruptHandler(self, signal, frame):
         print("KeyboardInterrupt (ID: {}) has been caught. Cleaning up...".format(signal))
         self.shutdown()
-        self.displaymgr.thread.stop()
+        self.displaymgr.stop = True
         print("Shutdown complete")
         exit(0)
 
