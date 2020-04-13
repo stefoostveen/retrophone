@@ -9,6 +9,10 @@ This project converts a raspberry pi rotary phone into a sip client
 
 2. Download source code 
 
+    Either get it from my gitlab which includes fixes for www-auth headers
+    `git clone git@gitlab.com:soostveen/pjproject.git`
+    
+    Or get it from the original github (without linphone fixes)
     `git clone https://github.com/pjsip/pjproject`
 
 3. Configure the project
@@ -31,6 +35,8 @@ This project converts a raspberry pi rotary phone into a sip client
     `cd pjsip-apps/src/swig`
     
     `make`
+    
+    Ignore the JAVA error. We don't care for Java.
 
 6. Get the project
 

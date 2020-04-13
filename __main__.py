@@ -13,7 +13,8 @@ import dial
 class App:
     def __init__(self):
         self.displaymgr = displaymanager.DisplayManager(23)
-        scene = scn.Scene().add_animation("reg_start")
+        scene = scn.Scene()
+        scene.add_animation("reg_start", picture_duration=100)
         self.displaymgr.set_scene(scene)
 
         self.dialmgr = dial.Dial(25,24,18)
@@ -41,17 +42,18 @@ class App:
 
     def registration_complete(self, event):
         if event.code == 403:
-            screen = scn.Scene().add_animation("reg_perm_fail")
-            self.displaymgr.set_scene(screen)
-            screen = scn.FaultScene("Wrong username or password supplied. Visit "+self.server[0] + self.server[1] + " to resolve.")
-            self.displaymgr.show_scene(screen)
+            scene = scn.Scene()
+            scene.add_animation("reg_perm_fail")
+            self.displaymgr.set_scene(scene)
+            scene = scn.FaultScene("Wrong username or password supplied. Visit "+self.server[0] + self.server[1] + " to resolve.")
+            self.displaymgr.show_scene(scene)
         elif event.code == 200:
             self.displaymgr.set_home_screen()
-            screen = scn.SuccessScene("Now able to make and accept calls.")
-            self.displaymgr.show_scene(screen)
+            scene = scn.SuccessScene("Now able to make and accept calls.")
+            self.displaymgr.show_scene(scene)
         else:
-            screen = scn.FaultScene("Unknown connection error. Visit "+self.server[0] + self.server[1] + " to resolve.")
-            self.displaymgr.show_scene(screen)
+            scene = scn.FaultScene("Unknown connection error. Visit "+self.server[0] + self.server[1] + " to resolve.")
+            self.displaymgr.show_scene(scene)
 
     def hook_event(self, event):
         if event.on_hook:
@@ -62,7 +64,8 @@ class App:
 
     def digit_added_to_number(self, event):
         if not self.callmgr.account.call:
-            scene = scn.Scene().add_text(str(event.phone_number))
+            scene = scn.Scene()
+            scene.add_text(str(event.phone_number))
             self.displaymgr.set_scene(scene)
 
     def number_received(self, event):
@@ -78,7 +81,8 @@ class App:
         self.displaymgr.set_scene(scene)
 
     def call_declined(self, event):
-        scene = scn.Scene().add_text("Call declined",picture_duration=2000)
+        scene = scn.Scene()
+        scene.add_text("Call declined",picture_duration=2000)
         self.displaymgr.show_scene(scene)
         self.displaymgr.set_home_screen()
         self.ringer.stop()
