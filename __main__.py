@@ -35,11 +35,21 @@ class App:
         self.callmgr.register()
         self.server = ["http://", "phone.local"]
 
+        self.dialing_allowed = False
+
         print("Registration phase finished")
         self.runapp()
 
     def shutdown(self):
+        scene = scn.Scene()
+        scene.add_animation("app_shutdown", picture_duration=100)
+
+        self.displaymgr.set_scene(scene)
         self.callmgr.unregister()
+
+        scene = scn.Scene()
+        scene.add_animation("app_remove_power", picture_duration=100)
+        self.displaymgr.set_scene(scene)
 
     def registration_complete(self, event):
         if event.code == 403:
@@ -57,21 +67,28 @@ class App:
             self.displaymgr.show_scene(scene)
 
     def hook_event(self, event):
+        # end everything if hook is thrown on
         if event.on_hook:
             self.callmgr.end_calls()
             self.displaymgr.set_home_screen()
+            self.allow_dialing(False)
         else:
-            self.callmgr.accept_call()
+            # hook is picked up. Answer call if exists or play dial tone if registered
+            if not self.callmgr.account.call and self.callmgr.account.isValid():
+                self.allow_dialing(True)
+            else:
+                self.callmgr.accept_call()
 
     def digit_added_to_number(self, event):
-        if not self.callmgr.account.call:
+        if self.dialing_allowed:
             scene = scn.Scene()
             scene.add_text(str(event.phone_number))
             self.displaymgr.set_scene(scene)
 
     def number_received(self, event):
         # todo: change outgoing sip address to something valid
-        if not self.callmgr.account.call:
+        if self.dialing_allowed:
+            self.allow_dialing(False)
             self.callmgr.invoke_call("sip:"+event.phone_number+"@sip.example.com")
 
     def call_accepted(self, event):
@@ -87,6 +104,16 @@ class App:
         self.displaymgr.show_scene(scene)
         self.displaymgr.set_home_screen()
         self.ringer.stop()
+
+    def allow_dialing(self, allow):
+        print("dialing allowed: "+str(allow))
+        self.dialing_allowed = allow
+        if allow:
+            # play dial tone
+            pass
+        else:
+            # stop dial tone
+            pass
 
     def incoming_call(self, event):
         # Solved: ringing is blocked by something. Audio stuttering -- edit: I think this is caused by the thread calling this method. It's actually called via a callback
