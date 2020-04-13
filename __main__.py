@@ -92,8 +92,8 @@ class App:
         # Solved: ringing is blocked by something. Audio stuttering -- edit: I think this is caused by the thread calling this method. It's actually called via a callback
         print("Starting ringing!")
         scene = scn.Scene()
-        scene.add_animation("call_incoming", picture_duration=100)
-        scene.add_animation("call_incoming", picture_duration=100)
+        scene.add_animation("call_incoming", picture_duration=200)
+        scene.add_animation("call_incoming", picture_duration=200)
         scene.add_text(event.info.remoteContact + "(" + event.info.remoteUri + ")", picture_duration=1500)
         scene.add_text("Pick up or decline with PTT-button", picture_duration = 1000)
         self.displaymgr.set_scene(scene)
