@@ -63,11 +63,12 @@ class App:
             self.displaymgr.set_scene(scene)
             scene = scn.FaultScene("Wrong username or password supplied. Visit "+self.server[0] + self.server[1] + " to resolve.")
             self.displaymgr.show_scene(scene)
-        elif event.code == 200 and not self.has_ever_registered:
-            self.has_ever_registered = True
-            self.displaymgr.set_home_screen()
-            scene = scn.SuccessScene("Now able to make and accept calls.")
-            self.displaymgr.show_scene(scene)
+        elif event.code == 200:
+            if not self.has_ever_registered:
+                self.has_ever_registered = True
+                self.displaymgr.set_home_screen()
+                scene = scn.SuccessScene("Now able to make and accept calls.")
+                self.displaymgr.show_scene(scene)
         else:
             scene = scn.FaultScene("Unknown connection error. Visit "+self.server[0] + self.server[1] + " to resolve.")
             self.displaymgr.show_scene(scene)
@@ -135,6 +136,7 @@ class App:
     def keyboardInterruptHandler(self, signal, frame):
         print("KeyboardInterrupt (ID: {}) has been caught. Cleaning up...".format(signal))
         self.shutdown()
+        print("Shutdown complete")
         exit(0)
 
     def runapp(self):
