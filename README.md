@@ -1,7 +1,7 @@
 ## Installation instructions
 
 1. Install some packages
-`sudo apt-get install libasound2-dev libssl-dev libv4l-dev libsdl2-dev libsdl2-gfx-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libx264-dev libavformat-dev libavcodec-dev libavdevice-dev libavfilter-dev libavresample-dev libavutil-dev libavcodec-extra libopus-dev libopencore-amrwb-dev libopencore-amrnb-dev libvo-amrwbenc-dev subversion libportaudio2 libatlas-base-dev`
+`sudo apt-get install libasound2-dev libssl-dev libv4l-dev libsdl2-dev libsdl2-gfx-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libx264-dev libavformat-dev libavcodec-dev libavdevice-dev libavfilter-dev libavresample-dev libavutil-dev libavcodec-extra libopus-dev libopencore-amrwb-dev libopencore-amrnb-dev libvo-amrwbenc-dev subversion libportaudio2 libatlas-base-dev swig`
 
 2. Download source code 
 `git clone https://github.com/pjsip/pjproject`
@@ -15,7 +15,6 @@
 `sudo make install`
 
 5. Build the swig python module
-`sudo apt-get install swig`
 `cd pjsip-apps/src/swig`
 `make`
 
