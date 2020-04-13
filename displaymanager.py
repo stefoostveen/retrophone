@@ -22,7 +22,7 @@ class DisplayManager:
             self.disp.clear()
             self.disp.display()
 
-            threading.Thread(target=self._service, daemon=True).start()
+            threading.Thread(target=self._service, daemon=False).start()
         except Exception as e:
             logging.warning("Could not instantiate display")
 
