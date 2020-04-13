@@ -8,6 +8,7 @@ import callmanager_events as cme
 import displaymanager
 import scene as scn
 import dial
+import queue
 
 
 class App:
@@ -17,6 +18,8 @@ class App:
         scene.add_animation("reg_start", picture_duration=100)
         self.displaymgr.set_scene(scene)
         time.sleep(1)
+
+        self.callback_queue = queue.Queue()
 
         self.dialmgr = dial.Dial(25,24,18)
         self.dialmgr.subscribe(self.hook_event, cme.DIAL_HOOK_CHANGE)
@@ -69,7 +72,7 @@ class App:
     def hook_event(self, event):
         # end everything if hook is thrown on
         if event.on_hook:
-            self.callmgr.end_calls()
+            self.callback_queue.put(self.callmgr.end_calls)
             self.displaymgr.set_home_screen()
             self.allow_dialing(False)
         else:
@@ -77,7 +80,7 @@ class App:
             if not self.callmgr.account.call and self.callmgr.account.isValid():
                 self.allow_dialing(True)
             else:
-                self.callmgr.accept_call()
+                self.callback_queue.put(self.callmgr.accept_call)
 
     def digit_added_to_number(self, event):
         if self.dialing_allowed:
@@ -89,7 +92,7 @@ class App:
         # todo: change outgoing sip address to something valid
         if self.dialing_allowed:
             self.allow_dialing(False)
-            self.callmgr.invoke_call("sip:"+event.phone_number+"@sip.example.com")
+            self.callback_queue.put((self.callmgr.invoke_call, ["sip:"+event.phone_number+"@sip.example.com"]))
 
     def call_accepted(self, event):
         self.ringer.stop()
@@ -133,6 +136,9 @@ class App:
 
     def runapp(self):
         while True:
+            if not self.callback_queue.empty():
+                cb = self.callback_queue.get(False)  # doesn't block
+                cb()
             # Do some polling due to threadcnt being zero: https://www.pjsip.org/pjsip/docs/html/classpj_1_1Endpoint.htm#ade134bcab9fdbef563236237034ec3ec
             self.callmgr.run()
             time.sleep(0.1)
