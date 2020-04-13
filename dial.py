@@ -36,7 +36,7 @@ class Dial:
         except Exception:
             logging.warning("Could not instantiate dial")
 
-    def hook_event(self):
+    def hook_event(self, channel):
         self.onhook = GPIO.input(self.HOOK_PIN)
         if self.onhook:
             # reset dialing and end any calls
@@ -49,7 +49,7 @@ class Dial:
     def dialing_complete(self):
         self.notify(cme.DIAL_DIALING_COMPLETE, phone_number=self.phone_number)
 
-    def rotation_event(self):
+    def rotation_event(self, channel):
         self.dialing = GPIO.input(self.DIAL_ACTIVE_PIN)
         if not self.dialing:
             # dialing ended. Check if a number was dialed
@@ -59,7 +59,7 @@ class Dial:
         else:
             self.dialing_timer.cancel()
 
-    def count_pulse(self):
+    def count_pulse(self, channel):
         if not self.onhook and self.dialing:
             self.currentcount += 1
 
