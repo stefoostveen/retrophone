@@ -17,7 +17,6 @@ class App:
         scene = scn.Scene()
         scene.add_animation("reg_start", picture_duration=100)
         self.displaymgr.set_scene(scene)
-        self.running = True
         time.sleep(1)
 
         self.has_ever_registered = False
@@ -137,12 +136,12 @@ class App:
     def keyboardInterruptHandler(self, signal, frame):
         print("KeyboardInterrupt (ID: {}) has been caught. Cleaning up...".format(signal))
         self.shutdown()
+        self.displaymgr.thread.stop()
         print("Shutdown complete")
-        self.running = False
         exit(0)
 
     def runapp(self):
-        while self.running:
+        while True:
             if not self.callback_queue.empty():
                 cb = self.callback_queue.get(False)  # doesn't block
                 cb()
