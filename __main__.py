@@ -19,6 +19,8 @@ class App:
         self.displaymgr.set_scene(scene)
         time.sleep(1)
 
+        self.has_ever_registered = False
+
         self.callback_queue = queue.Queue()
 
         self.dialmgr = dial.Dial(25,24,18)
@@ -61,7 +63,8 @@ class App:
             self.displaymgr.set_scene(scene)
             scene = scn.FaultScene("Wrong username or password supplied. Visit "+self.server[0] + self.server[1] + " to resolve.")
             self.displaymgr.show_scene(scene)
-        elif event.code == 200:
+        elif event.code == 200 and not self.has_ever_registered:
+            self.has_ever_registered = True
             self.displaymgr.set_home_screen()
             scene = scn.SuccessScene("Now able to make and accept calls.")
             self.displaymgr.show_scene(scene)
