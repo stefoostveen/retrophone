@@ -16,6 +16,7 @@ class App:
         scene = scn.Scene()
         scene.add_animation("reg_start", picture_duration=100)
         self.displaymgr.set_scene(scene)
+        time.sleep(1)
 
         self.dialmgr = dial.Dial(25,24,18)
         self.dialmgr.subscribe(self.hook_event, cme.DIAL_HOOK_CHANGE)
@@ -91,7 +92,8 @@ class App:
         # Solved: ringing is blocked by something. Audio stuttering -- edit: I think this is caused by the thread calling this method. It's actually called via a callback
         print("Starting ringing!")
         scene = scn.Scene()
-        scene.add_animation("call_incoming")
+        scene.add_animation("call_incoming", picture_duration=100)
+        scene.add_animation("call_incoming", picture_duration=100)
         scene.add_text(event.info.remoteContact + "(" + event.info.remoteUri + ")", picture_duration=1500)
         scene.add_text("Pick up or decline with PTT-button", picture_duration = 1000)
         self.displaymgr.set_scene(scene)
