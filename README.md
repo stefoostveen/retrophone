@@ -5,7 +5,7 @@ This project converts a raspberry pi rotary phone into a sip client
 
 1. Install some packages
 
-    `sudo apt-get install libasound2-dev libssl-dev libv4l-dev libsdl2-dev libsdl2-gfx-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libx264-dev libavformat-dev libavcodec-dev libavdevice-dev libavfilter-dev libavresample-dev libavutil-dev libavcodec-extra libopus-dev libopencore-amrwb-dev libopencore-amrnb-dev libvo-amrwbenc-dev subversion libportaudio2 libatlas-base-dev swig`
+    `sudo apt-get install libasound2-dev libssl-dev libv4l-dev libsdl2-dev libsdl2-gfx-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libx264-dev libavformat-dev libavcodec-dev libavdevice-dev libavfilter-dev libavresample-dev libavutil-dev libavcodec-extra libopus-dev libopencore-amrwb-dev libopencore-amrnb-dev libvo-amrwbenc-dev subversion libportaudio2 libatlas-base-dev swig git python3-dev`
 
 2. Download source code 
 
@@ -18,10 +18,15 @@ This project converts a raspberry pi rotary phone into a sip client
 3. Configure the project
 
     `./configure --enable-shared`
+    
+    Please note that on some earlier raspberry pis, one should disable libwebrtc due to emmintrin thingies.
+    
+    `./configure --enable-shared --disable-libwebrtc`
 
 4. Build and install pjsip
 
     `make dep && make clean && make`
+    
     `sudo make install`
 
 5. Build the swig python module
