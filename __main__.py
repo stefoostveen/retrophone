@@ -67,6 +67,9 @@ class App:
             if not self.has_ever_registered:
                 self.has_ever_registered = True
                 self.displaymgr.set_home_screen()
+                scene = scn.Scene()
+                scene.add_animation("test_screen")
+                self.displaymgr.set_scene(scene)
                 scene = scn.SuccessScene("Now able to make and accept calls.")
                 self.displaymgr.show_scene(scene)
         else:

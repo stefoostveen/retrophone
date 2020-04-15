@@ -5,7 +5,7 @@ This project converts a raspberry pi rotary phone into a sip client
 
 1. Install some packages
 
-    `sudo apt-get install libasound2-dev libssl-dev libv4l-dev libsdl2-dev libsdl2-gfx-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libx264-dev libavformat-dev libavcodec-dev libavdevice-dev libavfilter-dev libavresample-dev libavutil-dev libavcodec-extra libopus-dev libopencore-amrwb-dev libopencore-amrnb-dev libvo-amrwbenc-dev subversion libportaudio2 libatlas-base-dev swig git python3-dev`
+    `sudo apt-get install libasound2-dev libssl-dev libv4l-dev libsdl2-dev libsdl2-gfx-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev libx264-dev libavformat-dev libavcodec-dev libavdevice-dev libavfilter-dev libavresample-dev libavutil-dev libavcodec-extra libopus-dev libopencore-amrwb-dev libopencore-amrnb-dev libvo-amrwbenc-dev subversion libportaudio2 libatlas-base-dev swig git python3-dev python3-venv`
 
 2. Download source code 
 
@@ -29,7 +29,7 @@ This project converts a raspberry pi rotary phone into a sip client
     
     `sudo make install`
 
-5. Build the swig python module
+5. Build and install the swig python module
     
     Increase the swapfile if necessary on the raspberry pi: 
     
@@ -42,18 +42,20 @@ This project converts a raspberry pi rotary phone into a sip client
     `make`
     
     Ignore the JAVA error. We don't care for Java.
+    
+    Install the module:
+    
+    `sudo make install`
 
 6. Get the project
 
     `git clone https://gitlab.com/soostveen/retrophone`
 
-7. Copy the built module to the project: copy the contents of `pjsip-apps/src/swig/build/BUILD_NAME` to the `retrophone/venv/lib/python_VERSION_/site-packages` folder
-
 8. Create a python virtual env
 
     `cd retrophone`
     
-    `python3 -m venv venv`
+    `python3 -m venv --system-site-packages venv`
 
    Activate the venv
 

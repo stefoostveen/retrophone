@@ -54,6 +54,7 @@ class Picture:
         self.image = Image.new('1', (128, 32))
 
     def createFromText(self, line):
+        # todo: text does not look nice. Overflow both left and right.
         line_y = 5
         self.image = Image.new('1', (128, 32))
         # Get drawing object to draw on image.
