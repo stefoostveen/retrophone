@@ -61,9 +61,11 @@ class Picture:
         draw = ImageDraw.Draw(self.image)
         tw, th = draw.textsize(line)
         draw.text(((128 - tw) / 2, line_y), line, fill=255)
+        self.image.transpose(Image.FLIP_TOP_BOTTOM)
 
     def createFromImage(self, uri):
         imgdir = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
         imgdir = imgdir + "/img/"
         folder = os.path.dirname(__file__)
         self.image = Image.open(uri).convert('1')
+        self.image.transpose(Image.FLIP_TOP_BOTTOM)
