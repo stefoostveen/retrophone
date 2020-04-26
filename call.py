@@ -39,6 +39,7 @@ class Call(pj.Call):
                 m = self.getMedia(mi.index)
                 am = pj.AudioMedia.typecastFromMedia(m)
                 # connect ports
+                #todo: AttributeError: 'builtin_function_or_method' object has no attribute 'audDevManager' on the pi
                 pj.Endpoint.instance.audDevManager().getCaptureDevMedia().startTransmit(am)
                 am.startTransmit(pj.Endpoint.instance.audDevManager().getPlaybackDevMedia())
 

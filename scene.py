@@ -10,12 +10,19 @@ class Scene:
         self.pictures = []
 
     def add_text(self, text, picture_duration = 500, chars_per_line=20):
-        # this line fits, just draw it
-        finished = False
-        while not finished:
-            pict = Picture(picture_duration)
-            finished = pict.createFromText(text)
+        fitting = True
+        firstframe = True
+        while fitting:
+            if firstframe:
+                pict = Picture(picture_duration)
+                firstframe = False
+            else:
+                pict = Picture(50)
+            fitting = pict.createFromText(text)
+            if not fitting:
+                pict.duration = picture_duration
             self.pictures.append(pict)
+            text = text[1:]
 
     def add_animation(self, img_folder, picture_duration=500):
         img_folder = os.path.join(os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))), "img/" + img_folder)
@@ -31,14 +38,14 @@ class FaultScene(Scene):
     def __init__(self, text):
         Scene.__init__(self)
         self.add_animation("fault", picture_duration=1000)
-        self.add_text(text, picture_duration=5000)
+        self.add_text(text, picture_duration=2000)
 
 
 class SuccessScene(Scene):
     def __init__(self, text):
         Scene.__init__(self)
-        self.add_animation("success", picture_duration=1000)
-        self.add_text(text, picture_duration=3000)
+        self.add_animation("success", picture_duration=500)
+        self.add_text(text, picture_duration=1000)
 
 class EmptyScene(Scene):
     def __init__(self):

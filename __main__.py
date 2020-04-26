@@ -129,7 +129,7 @@ class App:
         scene.add_animation("call_incoming", picture_duration=200)
         scene.add_animation("call_incoming", picture_duration=200)
         scene.add_text(event.info.remoteContact + "(" + event.info.remoteUri + ")", picture_duration=1500)
-        scene.add_text("Pick up or decline with PTT-button", picture_duration = 1000)
+        #scene.add_text("Pick up or decline with PTT-button", picture_duration = 1000)
         self.displaymgr.set_scene(scene)
         self.ringer.ring()
 
