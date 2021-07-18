@@ -1,3 +1,5 @@
+import logging
+
 import sounddevice as sd
 import soundfile as sf
 import numpy as np
@@ -22,6 +24,7 @@ class Ringer:
             dev_cnf = config['DEV']
             self.pb_device = dev_cnf.getint('PlaybackDevice', 0)
         except Exception as e:
+            logging.warning("[RINGER] Cannot instantiate playback device")
             self.pb_device = None
 
     def play(self, loop=False):
@@ -32,6 +35,7 @@ class Ringer:
             sd.play(data, fs, device=self.pb_device, loop=loop)
 
     def ring(self):
+        logging.info("[RINGER] Started ringing")
         self.play(True)
 
     def stop(self):
