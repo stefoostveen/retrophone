@@ -50,7 +50,7 @@ class Dial:
         self.notify(cme.DIAL_DIALING_COMPLETE, phone_number=self.phone_number)
 
     def rotation_event(self, channel):
-        self.dialing = GPIO.input(self.DIAL_ACTIVE_PIN)
+        self.dialing = not GPIO.input(self.DIAL_ACTIVE_PIN)
         if not self.dialing:
             # dialing ended. Check if a number was dialed
             if self.currentcount > 0:
