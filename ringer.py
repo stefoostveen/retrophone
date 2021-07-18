@@ -35,7 +35,8 @@ class Ringer:
             sd.play(data, fs, device=self.pb_device, loop=loop)
 
     def ring(self):
-        logging.info("[RINGER] Started ringing")
+        print("[RINGER] Started ringing")
+        print("[RINGER] Pbdev="+str(self.pb_device))
         self.play(True)
 
     def stop(self):
