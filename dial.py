@@ -15,7 +15,7 @@ class Dial:
         self.DIAL_ACTIVE_PIN = dial_active_pin
         self.PULSE_PIN = pulse_pin
         self.HOOK_PIN = hook_pin
-        self.phone_number = None
+        self.phone_number = ""
         self.currentcount = 0
         self.dialing_timer = threading.Timer(5, self.dialing_complete)
         self.callbacks = {
@@ -42,7 +42,7 @@ class Dial:
             # reset dialing and end any calls
             self.dialing_timer.cancel()
             self.currentcount = 0
-            self.phone_number = None
+            self.phone_number = ""
 
         self.notify(cme.DIAL_HOOK_CHANGE, on_hook=self.onhook)
 
@@ -51,6 +51,7 @@ class Dial:
 
     def rotation_event(self, channel):
         self.dialing = not GPIO.input(self.DIAL_ACTIVE_PIN)
+        logging.info("[DIAL] Rotation: "+str(self.dialing))
         if not self.dialing:
             # dialing ended. Check if a number was dialed
             if self.currentcount > 0:
@@ -60,6 +61,7 @@ class Dial:
             self.dialing_timer.cancel()
 
     def count_pulse(self, channel):
+        logging.info("[DIAL] Pulse")
         if not self.onhook and self.dialing:
             self.currentcount += 1
 
