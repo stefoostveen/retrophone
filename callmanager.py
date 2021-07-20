@@ -14,6 +14,7 @@ class CallManager:
 
     def __init__(self):
         # self.call = None
+        self.auddevman = None
         self.ep = None
         self.account = None
         self.callbacks = {
@@ -92,6 +93,10 @@ class CallManager:
             self.account.subscribe(self.on_incoming_call, cme.CM_CALL_INCOMING)
         except Exception as e:
             logging.exception(e)
+
+        print("[CALLMGR] getting auddevmanager")
+        self.auddevman = self.ep.audDevManager()
+        self.auddevman.getCaptureDev()
 
     def accept_call(self):
         if self.account.call:

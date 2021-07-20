@@ -67,7 +67,7 @@ class App:
             if not self.has_ever_registered:
                 self.has_ever_registered = True
                 self.displaymgr.set_home_screen()
-                scene = scn.SuccessScene("Now able to make and accept calls.")
+                scene = scn.SuccessScene("Connected")
                 self.displaymgr.show_scene(scene)
         else:
             scene = scn.FaultScene("Unknown connection error. Visit "+self.server[0] + self.server[1] + " to resolve.")
@@ -96,7 +96,7 @@ class App:
         # todo: change outgoing sip address to something valid
         if self.dialing_allowed:
             self.allow_dialing(False)
-            self.callback_queue.put((self.callmgr.invoke_call, ["sip:"+event.phone_number+"@sip.example.com"]))
+            self.callback_queue.put(self.callmgr.invoke_call("sip:"+event.phone_number+"@sip.example.com"))
 
     def call_accepted(self, event):
         self.ringer.stop()

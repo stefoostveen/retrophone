@@ -241,6 +241,7 @@ PJ_SSL_SOCK_PROTO_SSL3 = _pjsua2.PJ_SSL_SOCK_PROTO_SSL3
 PJ_SSL_SOCK_PROTO_TLS1 = _pjsua2.PJ_SSL_SOCK_PROTO_TLS1
 PJ_SSL_SOCK_PROTO_TLS1_1 = _pjsua2.PJ_SSL_SOCK_PROTO_TLS1_1
 PJ_SSL_SOCK_PROTO_TLS1_2 = _pjsua2.PJ_SSL_SOCK_PROTO_TLS1_2
+PJ_SSL_SOCK_PROTO_TLS1_3 = _pjsua2.PJ_SSL_SOCK_PROTO_TLS1_3
 PJ_SSL_SOCK_PROTO_SSL23 = _pjsua2.PJ_SSL_SOCK_PROTO_SSL23
 PJ_SSL_SOCK_PROTO_ALL = _pjsua2.PJ_SSL_SOCK_PROTO_ALL
 PJ_SSL_SOCK_PROTO_DTLS1 = _pjsua2.PJ_SSL_SOCK_PROTO_DTLS1
@@ -261,6 +262,9 @@ PJ_SSL_CERT_EREVOKED = _pjsua2.PJ_SSL_CERT_EREVOKED
 PJ_SSL_CERT_ECHAIN_TOO_LONG = _pjsua2.PJ_SSL_CERT_ECHAIN_TOO_LONG
 PJ_SSL_CERT_EIDENTITY_NOT_MATCH = _pjsua2.PJ_SSL_CERT_EIDENTITY_NOT_MATCH
 PJ_SSL_CERT_EUNKNOWN = _pjsua2.PJ_SSL_CERT_EUNKNOWN
+PJ_ICE_SESS_TRICKLE_DISABLED = _pjsua2.PJ_ICE_SESS_TRICKLE_DISABLED
+PJ_ICE_SESS_TRICKLE_HALF = _pjsua2.PJ_ICE_SESS_TRICKLE_HALF
+PJ_ICE_SESS_TRICKLE_FULL = _pjsua2.PJ_ICE_SESS_TRICKLE_FULL
 PJ_STUN_NAT_TYPE_UNKNOWN = _pjsua2.PJ_STUN_NAT_TYPE_UNKNOWN
 PJ_STUN_NAT_TYPE_ERR_UNKNOWN = _pjsua2.PJ_STUN_NAT_TYPE_ERR_UNKNOWN
 PJ_STUN_NAT_TYPE_OPEN = _pjsua2.PJ_STUN_NAT_TYPE_OPEN
@@ -300,7 +304,9 @@ PJMEDIA_EVENT_RX_RTCP_FB = _pjsua2.PJMEDIA_EVENT_RX_RTCP_FB
 PJMEDIA_EVENT_AUD_DEV_ERROR = _pjsua2.PJMEDIA_EVENT_AUD_DEV_ERROR
 PJMEDIA_EVENT_VID_DEV_ERROR = _pjsua2.PJMEDIA_EVENT_VID_DEV_ERROR
 PJMEDIA_EVENT_MEDIA_TP_ERR = _pjsua2.PJMEDIA_EVENT_MEDIA_TP_ERR
+PJMEDIA_EVENT_CALLBACK = _pjsua2.PJMEDIA_EVENT_CALLBACK
 PJMEDIA_SRTP_DISABLED = _pjsua2.PJMEDIA_SRTP_DISABLED
+PJMEDIA_SRTP_UNKNOWN = _pjsua2.PJMEDIA_SRTP_UNKNOWN
 PJMEDIA_SRTP_OPTIONAL = _pjsua2.PJMEDIA_SRTP_OPTIONAL
 PJMEDIA_SRTP_MANDATORY = _pjsua2.PJMEDIA_SRTP_MANDATORY
 PJMEDIA_SRTP_NO_ENCRYPTION = _pjsua2.PJMEDIA_SRTP_NO_ENCRYPTION
@@ -323,6 +329,7 @@ PJMEDIA_VID_DEV_CAP_INPUT_PREVIEW = _pjsua2.PJMEDIA_VID_DEV_CAP_INPUT_PREVIEW
 PJMEDIA_VID_DEV_CAP_ORIENTATION = _pjsua2.PJMEDIA_VID_DEV_CAP_ORIENTATION
 PJMEDIA_VID_DEV_CAP_SWITCH = _pjsua2.PJMEDIA_VID_DEV_CAP_SWITCH
 PJMEDIA_VID_DEV_CAP_OUTPUT_WINDOW_FLAGS = _pjsua2.PJMEDIA_VID_DEV_CAP_OUTPUT_WINDOW_FLAGS
+PJMEDIA_VID_DEV_CAP_OUTPUT_FULLSCREEN = _pjsua2.PJMEDIA_VID_DEV_CAP_OUTPUT_FULLSCREEN
 PJMEDIA_VID_DEV_CAP_MAX = _pjsua2.PJMEDIA_VID_DEV_CAP_MAX
 PJMEDIA_AUD_DEV_ROUTE_DEFAULT = _pjsua2.PJMEDIA_AUD_DEV_ROUTE_DEFAULT
 PJMEDIA_AUD_DEV_ROUTE_LOUDSPEAKER = _pjsua2.PJMEDIA_AUD_DEV_ROUTE_LOUDSPEAKER
@@ -502,6 +509,7 @@ PJMEDIA_FORMAT_YVYU = _pjsua2.PJMEDIA_FORMAT_YVYU
 PJMEDIA_FORMAT_I420 = _pjsua2.PJMEDIA_FORMAT_I420
 PJMEDIA_FORMAT_IYUV = _pjsua2.PJMEDIA_FORMAT_IYUV
 PJMEDIA_FORMAT_YV12 = _pjsua2.PJMEDIA_FORMAT_YV12
+PJMEDIA_FORMAT_NV12 = _pjsua2.PJMEDIA_FORMAT_NV12
 PJMEDIA_FORMAT_NV21 = _pjsua2.PJMEDIA_FORMAT_NV21
 PJMEDIA_FORMAT_I422 = _pjsua2.PJMEDIA_FORMAT_I422
 PJMEDIA_FORMAT_I420JPEG = _pjsua2.PJMEDIA_FORMAT_I420JPEG
@@ -510,10 +518,13 @@ PJMEDIA_FORMAT_H261 = _pjsua2.PJMEDIA_FORMAT_H261
 PJMEDIA_FORMAT_H263 = _pjsua2.PJMEDIA_FORMAT_H263
 PJMEDIA_FORMAT_H263P = _pjsua2.PJMEDIA_FORMAT_H263P
 PJMEDIA_FORMAT_H264 = _pjsua2.PJMEDIA_FORMAT_H264
+PJMEDIA_FORMAT_VP8 = _pjsua2.PJMEDIA_FORMAT_VP8
+PJMEDIA_FORMAT_VP9 = _pjsua2.PJMEDIA_FORMAT_VP9
 PJMEDIA_FORMAT_MJPEG = _pjsua2.PJMEDIA_FORMAT_MJPEG
 PJMEDIA_FORMAT_MPEG1VIDEO = _pjsua2.PJMEDIA_FORMAT_MPEG1VIDEO
 PJMEDIA_FORMAT_MPEG2VIDEO = _pjsua2.PJMEDIA_FORMAT_MPEG2VIDEO
 PJMEDIA_FORMAT_MPEG4 = _pjsua2.PJMEDIA_FORMAT_MPEG4
+PJMEDIA_FORMAT_INVALID = _pjsua2.PJMEDIA_FORMAT_INVALID
 PJMEDIA_VID_PACKING_UNKNOWN = _pjsua2.PJMEDIA_VID_PACKING_UNKNOWN
 PJMEDIA_VID_PACKING_PACKETS = _pjsua2.PJMEDIA_VID_PACKING_PACKETS
 PJMEDIA_VID_PACKING_WHOLE = _pjsua2.PJMEDIA_VID_PACKING_WHOLE
@@ -540,8 +551,10 @@ PJSIP_SC_RINGING = _pjsua2.PJSIP_SC_RINGING
 PJSIP_SC_CALL_BEING_FORWARDED = _pjsua2.PJSIP_SC_CALL_BEING_FORWARDED
 PJSIP_SC_QUEUED = _pjsua2.PJSIP_SC_QUEUED
 PJSIP_SC_PROGRESS = _pjsua2.PJSIP_SC_PROGRESS
+PJSIP_SC_EARLY_DIALOG_TERMINATED = _pjsua2.PJSIP_SC_EARLY_DIALOG_TERMINATED
 PJSIP_SC_OK = _pjsua2.PJSIP_SC_OK
 PJSIP_SC_ACCEPTED = _pjsua2.PJSIP_SC_ACCEPTED
+PJSIP_SC_NO_NOTIFICATION = _pjsua2.PJSIP_SC_NO_NOTIFICATION
 PJSIP_SC_MULTIPLE_CHOICES = _pjsua2.PJSIP_SC_MULTIPLE_CHOICES
 PJSIP_SC_MOVED_PERMANENTLY = _pjsua2.PJSIP_SC_MOVED_PERMANENTLY
 PJSIP_SC_MOVED_TEMPORARILY = _pjsua2.PJSIP_SC_MOVED_TEMPORARILY
@@ -556,15 +569,31 @@ PJSIP_SC_METHOD_NOT_ALLOWED = _pjsua2.PJSIP_SC_METHOD_NOT_ALLOWED
 PJSIP_SC_NOT_ACCEPTABLE = _pjsua2.PJSIP_SC_NOT_ACCEPTABLE
 PJSIP_SC_PROXY_AUTHENTICATION_REQUIRED = _pjsua2.PJSIP_SC_PROXY_AUTHENTICATION_REQUIRED
 PJSIP_SC_REQUEST_TIMEOUT = _pjsua2.PJSIP_SC_REQUEST_TIMEOUT
+PJSIP_SC_CONFLICT = _pjsua2.PJSIP_SC_CONFLICT
 PJSIP_SC_GONE = _pjsua2.PJSIP_SC_GONE
+PJSIP_SC_LENGTH_REQUIRED = _pjsua2.PJSIP_SC_LENGTH_REQUIRED
+PJSIP_SC_CONDITIONAL_REQUEST_FAILED = _pjsua2.PJSIP_SC_CONDITIONAL_REQUEST_FAILED
 PJSIP_SC_REQUEST_ENTITY_TOO_LARGE = _pjsua2.PJSIP_SC_REQUEST_ENTITY_TOO_LARGE
 PJSIP_SC_REQUEST_URI_TOO_LONG = _pjsua2.PJSIP_SC_REQUEST_URI_TOO_LONG
 PJSIP_SC_UNSUPPORTED_MEDIA_TYPE = _pjsua2.PJSIP_SC_UNSUPPORTED_MEDIA_TYPE
 PJSIP_SC_UNSUPPORTED_URI_SCHEME = _pjsua2.PJSIP_SC_UNSUPPORTED_URI_SCHEME
+PJSIP_SC_UNKNOWN_RESOURCE_PRIORITY = _pjsua2.PJSIP_SC_UNKNOWN_RESOURCE_PRIORITY
 PJSIP_SC_BAD_EXTENSION = _pjsua2.PJSIP_SC_BAD_EXTENSION
 PJSIP_SC_EXTENSION_REQUIRED = _pjsua2.PJSIP_SC_EXTENSION_REQUIRED
 PJSIP_SC_SESSION_TIMER_TOO_SMALL = _pjsua2.PJSIP_SC_SESSION_TIMER_TOO_SMALL
 PJSIP_SC_INTERVAL_TOO_BRIEF = _pjsua2.PJSIP_SC_INTERVAL_TOO_BRIEF
+PJSIP_SC_BAD_LOCATION_INFORMATION = _pjsua2.PJSIP_SC_BAD_LOCATION_INFORMATION
+PJSIP_SC_USE_IDENTITY_HEADER = _pjsua2.PJSIP_SC_USE_IDENTITY_HEADER
+PJSIP_SC_PROVIDE_REFERRER_HEADER = _pjsua2.PJSIP_SC_PROVIDE_REFERRER_HEADER
+PJSIP_SC_FLOW_FAILED = _pjsua2.PJSIP_SC_FLOW_FAILED
+PJSIP_SC_ANONIMITY_DISALLOWED = _pjsua2.PJSIP_SC_ANONIMITY_DISALLOWED
+PJSIP_SC_BAD_IDENTITY_INFO = _pjsua2.PJSIP_SC_BAD_IDENTITY_INFO
+PJSIP_SC_UNSUPPORTED_CERTIFICATE = _pjsua2.PJSIP_SC_UNSUPPORTED_CERTIFICATE
+PJSIP_SC_INVALID_IDENTITY_HEADER = _pjsua2.PJSIP_SC_INVALID_IDENTITY_HEADER
+PJSIP_SC_FIRST_HOP_LACKS_OUTBOUND_SUPPORT = _pjsua2.PJSIP_SC_FIRST_HOP_LACKS_OUTBOUND_SUPPORT
+PJSIP_SC_MAX_BREADTH_EXCEEDED = _pjsua2.PJSIP_SC_MAX_BREADTH_EXCEEDED
+PJSIP_SC_BAD_INFO_PACKAGE = _pjsua2.PJSIP_SC_BAD_INFO_PACKAGE
+PJSIP_SC_CONSENT_NEEDED = _pjsua2.PJSIP_SC_CONSENT_NEEDED
 PJSIP_SC_TEMPORARILY_UNAVAILABLE = _pjsua2.PJSIP_SC_TEMPORARILY_UNAVAILABLE
 PJSIP_SC_CALL_TSX_DOES_NOT_EXIST = _pjsua2.PJSIP_SC_CALL_TSX_DOES_NOT_EXIST
 PJSIP_SC_LOOP_DETECTED = _pjsua2.PJSIP_SC_LOOP_DETECTED
@@ -578,6 +607,7 @@ PJSIP_SC_BAD_EVENT = _pjsua2.PJSIP_SC_BAD_EVENT
 PJSIP_SC_REQUEST_UPDATED = _pjsua2.PJSIP_SC_REQUEST_UPDATED
 PJSIP_SC_REQUEST_PENDING = _pjsua2.PJSIP_SC_REQUEST_PENDING
 PJSIP_SC_UNDECIPHERABLE = _pjsua2.PJSIP_SC_UNDECIPHERABLE
+PJSIP_SC_SECURITY_AGREEMENT_NEEDED = _pjsua2.PJSIP_SC_SECURITY_AGREEMENT_NEEDED
 PJSIP_SC_INTERNAL_SERVER_ERROR = _pjsua2.PJSIP_SC_INTERNAL_SERVER_ERROR
 PJSIP_SC_NOT_IMPLEMENTED = _pjsua2.PJSIP_SC_NOT_IMPLEMENTED
 PJSIP_SC_BAD_GATEWAY = _pjsua2.PJSIP_SC_BAD_GATEWAY
@@ -585,11 +615,14 @@ PJSIP_SC_SERVICE_UNAVAILABLE = _pjsua2.PJSIP_SC_SERVICE_UNAVAILABLE
 PJSIP_SC_SERVER_TIMEOUT = _pjsua2.PJSIP_SC_SERVER_TIMEOUT
 PJSIP_SC_VERSION_NOT_SUPPORTED = _pjsua2.PJSIP_SC_VERSION_NOT_SUPPORTED
 PJSIP_SC_MESSAGE_TOO_LARGE = _pjsua2.PJSIP_SC_MESSAGE_TOO_LARGE
+PJSIP_SC_PUSH_NOTIFICATION_SERVICE_NOT_SUPPORTED = _pjsua2.PJSIP_SC_PUSH_NOTIFICATION_SERVICE_NOT_SUPPORTED
 PJSIP_SC_PRECONDITION_FAILURE = _pjsua2.PJSIP_SC_PRECONDITION_FAILURE
 PJSIP_SC_BUSY_EVERYWHERE = _pjsua2.PJSIP_SC_BUSY_EVERYWHERE
 PJSIP_SC_DECLINE = _pjsua2.PJSIP_SC_DECLINE
 PJSIP_SC_DOES_NOT_EXIST_ANYWHERE = _pjsua2.PJSIP_SC_DOES_NOT_EXIST_ANYWHERE
 PJSIP_SC_NOT_ACCEPTABLE_ANYWHERE = _pjsua2.PJSIP_SC_NOT_ACCEPTABLE_ANYWHERE
+PJSIP_SC_UNWANTED = _pjsua2.PJSIP_SC_UNWANTED
+PJSIP_SC_REJECTED = _pjsua2.PJSIP_SC_REJECTED
 PJSIP_SC_TSX_TIMEOUT = _pjsua2.PJSIP_SC_TSX_TIMEOUT
 PJSIP_SC_TSX_TRANSPORT_ERROR = _pjsua2.PJSIP_SC_TSX_TRANSPORT_ERROR
 PJSIP_SC__force_32bit = _pjsua2.PJSIP_SC__force_32bit
@@ -642,6 +675,7 @@ PJSIP_TRANSPORT_UNSPECIFIED = _pjsua2.PJSIP_TRANSPORT_UNSPECIFIED
 PJSIP_TRANSPORT_UDP = _pjsua2.PJSIP_TRANSPORT_UDP
 PJSIP_TRANSPORT_TCP = _pjsua2.PJSIP_TRANSPORT_TCP
 PJSIP_TRANSPORT_TLS = _pjsua2.PJSIP_TRANSPORT_TLS
+PJSIP_TRANSPORT_DTLS = _pjsua2.PJSIP_TRANSPORT_DTLS
 PJSIP_TRANSPORT_SCTP = _pjsua2.PJSIP_TRANSPORT_SCTP
 PJSIP_TRANSPORT_LOOP = _pjsua2.PJSIP_TRANSPORT_LOOP
 PJSIP_TRANSPORT_LOOP_DGRAM = _pjsua2.PJSIP_TRANSPORT_LOOP_DGRAM
@@ -650,6 +684,7 @@ PJSIP_TRANSPORT_IPV6 = _pjsua2.PJSIP_TRANSPORT_IPV6
 PJSIP_TRANSPORT_UDP6 = _pjsua2.PJSIP_TRANSPORT_UDP6
 PJSIP_TRANSPORT_TCP6 = _pjsua2.PJSIP_TRANSPORT_TCP6
 PJSIP_TRANSPORT_TLS6 = _pjsua2.PJSIP_TRANSPORT_TLS6
+PJSIP_TRANSPORT_DTLS6 = _pjsua2.PJSIP_TRANSPORT_DTLS6
 PJSIP_TRANSPORT_RELIABLE = _pjsua2.PJSIP_TRANSPORT_RELIABLE
 PJSIP_TRANSPORT_SECURE = _pjsua2.PJSIP_TRANSPORT_SECURE
 PJSIP_TRANSPORT_DATAGRAM = _pjsua2.PJSIP_TRANSPORT_DATAGRAM
@@ -663,6 +698,7 @@ PJSIP_SSLV3_METHOD = _pjsua2.PJSIP_SSLV3_METHOD
 PJSIP_TLSV1_METHOD = _pjsua2.PJSIP_TLSV1_METHOD
 PJSIP_TLSV1_1_METHOD = _pjsua2.PJSIP_TLSV1_1_METHOD
 PJSIP_TLSV1_2_METHOD = _pjsua2.PJSIP_TLSV1_2_METHOD
+PJSIP_TLSV1_3_METHOD = _pjsua2.PJSIP_TLSV1_3_METHOD
 PJSIP_SSLV23_METHOD = _pjsua2.PJSIP_SSLV23_METHOD
 PJSIP_TSX_STATE_NULL = _pjsua2.PJSIP_TSX_STATE_NULL
 PJSIP_TSX_STATE_CALLING = _pjsua2.PJSIP_TSX_STATE_CALLING
@@ -6967,6 +7003,10 @@ class AccountNatConfig(PersistentObject):
     __swig_getmethods__["iceEnabled"] = _pjsua2.AccountNatConfig_iceEnabled_get
     if _newclass:
         iceEnabled = _swig_property(_pjsua2.AccountNatConfig_iceEnabled_get, _pjsua2.AccountNatConfig_iceEnabled_set)
+    __swig_setmethods__["iceTrickle"] = _pjsua2.AccountNatConfig_iceTrickle_set
+    __swig_getmethods__["iceTrickle"] = _pjsua2.AccountNatConfig_iceTrickle_get
+    if _newclass:
+        iceTrickle = _swig_property(_pjsua2.AccountNatConfig_iceTrickle_get, _pjsua2.AccountNatConfig_iceTrickle_set)
     __swig_setmethods__["iceMaxHostCands"] = _pjsua2.AccountNatConfig_iceMaxHostCands_set
     __swig_getmethods__["iceMaxHostCands"] = _pjsua2.AccountNatConfig_iceMaxHostCands_get
     if _newclass:
@@ -8549,6 +8589,30 @@ class StreamInfo(_object):
     __swig_getmethods__["vidCodecParam"] = _pjsua2.StreamInfo_vidCodecParam_get
     if _newclass:
         vidCodecParam = _swig_property(_pjsua2.StreamInfo_vidCodecParam_get, _pjsua2.StreamInfo_vidCodecParam_set)
+    __swig_setmethods__["jbInit"] = _pjsua2.StreamInfo_jbInit_set
+    __swig_getmethods__["jbInit"] = _pjsua2.StreamInfo_jbInit_get
+    if _newclass:
+        jbInit = _swig_property(_pjsua2.StreamInfo_jbInit_get, _pjsua2.StreamInfo_jbInit_set)
+    __swig_setmethods__["jbMinPre"] = _pjsua2.StreamInfo_jbMinPre_set
+    __swig_getmethods__["jbMinPre"] = _pjsua2.StreamInfo_jbMinPre_get
+    if _newclass:
+        jbMinPre = _swig_property(_pjsua2.StreamInfo_jbMinPre_get, _pjsua2.StreamInfo_jbMinPre_set)
+    __swig_setmethods__["jbMaxPre"] = _pjsua2.StreamInfo_jbMaxPre_set
+    __swig_getmethods__["jbMaxPre"] = _pjsua2.StreamInfo_jbMaxPre_get
+    if _newclass:
+        jbMaxPre = _swig_property(_pjsua2.StreamInfo_jbMaxPre_get, _pjsua2.StreamInfo_jbMaxPre_set)
+    __swig_setmethods__["jbMax"] = _pjsua2.StreamInfo_jbMax_set
+    __swig_getmethods__["jbMax"] = _pjsua2.StreamInfo_jbMax_get
+    if _newclass:
+        jbMax = _swig_property(_pjsua2.StreamInfo_jbMax_get, _pjsua2.StreamInfo_jbMax_set)
+    __swig_setmethods__["jbDiscardAlgo"] = _pjsua2.StreamInfo_jbDiscardAlgo_set
+    __swig_getmethods__["jbDiscardAlgo"] = _pjsua2.StreamInfo_jbDiscardAlgo_get
+    if _newclass:
+        jbDiscardAlgo = _swig_property(_pjsua2.StreamInfo_jbDiscardAlgo_get, _pjsua2.StreamInfo_jbDiscardAlgo_set)
+    __swig_setmethods__["rtcpSdesByeDisabled"] = _pjsua2.StreamInfo_rtcpSdesByeDisabled_set
+    __swig_getmethods__["rtcpSdesByeDisabled"] = _pjsua2.StreamInfo_rtcpSdesByeDisabled_get
+    if _newclass:
+        rtcpSdesByeDisabled = _swig_property(_pjsua2.StreamInfo_rtcpSdesByeDisabled_get, _pjsua2.StreamInfo_rtcpSdesByeDisabled_set)
 
     def __init__(self):
         this = _pjsua2.new_StreamInfo()
@@ -8675,6 +8739,32 @@ class OnCallSdpCreatedParam(_object):
 OnCallSdpCreatedParam_swigregister = _pjsua2.OnCallSdpCreatedParam_swigregister
 OnCallSdpCreatedParam_swigregister(OnCallSdpCreatedParam)
 
+class OnStreamPreCreateParam(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, OnStreamPreCreateParam, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, OnStreamPreCreateParam, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["streamIdx"] = _pjsua2.OnStreamPreCreateParam_streamIdx_set
+    __swig_getmethods__["streamIdx"] = _pjsua2.OnStreamPreCreateParam_streamIdx_get
+    if _newclass:
+        streamIdx = _swig_property(_pjsua2.OnStreamPreCreateParam_streamIdx_get, _pjsua2.OnStreamPreCreateParam_streamIdx_set)
+    __swig_setmethods__["streamInfo"] = _pjsua2.OnStreamPreCreateParam_streamInfo_set
+    __swig_getmethods__["streamInfo"] = _pjsua2.OnStreamPreCreateParam_streamInfo_get
+    if _newclass:
+        streamInfo = _swig_property(_pjsua2.OnStreamPreCreateParam_streamInfo_get, _pjsua2.OnStreamPreCreateParam_streamInfo_set)
+
+    def __init__(self):
+        this = _pjsua2.new_OnStreamPreCreateParam()
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _pjsua2.delete_OnStreamPreCreateParam
+    __del__ = lambda self: None
+OnStreamPreCreateParam_swigregister = _pjsua2.OnStreamPreCreateParam_swigregister
+OnStreamPreCreateParam_swigregister(OnStreamPreCreateParam)
+
 class OnStreamCreatedParam(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, OnStreamCreatedParam, name, value)
@@ -8764,6 +8854,44 @@ class OnDtmfDigitParam(_object):
     __del__ = lambda self: None
 OnDtmfDigitParam_swigregister = _pjsua2.OnDtmfDigitParam_swigregister
 OnDtmfDigitParam_swigregister(OnDtmfDigitParam)
+
+class OnDtmfEventParam(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, OnDtmfEventParam, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, OnDtmfEventParam, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["method"] = _pjsua2.OnDtmfEventParam_method_set
+    __swig_getmethods__["method"] = _pjsua2.OnDtmfEventParam_method_get
+    if _newclass:
+        method = _swig_property(_pjsua2.OnDtmfEventParam_method_get, _pjsua2.OnDtmfEventParam_method_set)
+    __swig_setmethods__["timestamp"] = _pjsua2.OnDtmfEventParam_timestamp_set
+    __swig_getmethods__["timestamp"] = _pjsua2.OnDtmfEventParam_timestamp_get
+    if _newclass:
+        timestamp = _swig_property(_pjsua2.OnDtmfEventParam_timestamp_get, _pjsua2.OnDtmfEventParam_timestamp_set)
+    __swig_setmethods__["digit"] = _pjsua2.OnDtmfEventParam_digit_set
+    __swig_getmethods__["digit"] = _pjsua2.OnDtmfEventParam_digit_get
+    if _newclass:
+        digit = _swig_property(_pjsua2.OnDtmfEventParam_digit_get, _pjsua2.OnDtmfEventParam_digit_set)
+    __swig_setmethods__["duration"] = _pjsua2.OnDtmfEventParam_duration_set
+    __swig_getmethods__["duration"] = _pjsua2.OnDtmfEventParam_duration_get
+    if _newclass:
+        duration = _swig_property(_pjsua2.OnDtmfEventParam_duration_get, _pjsua2.OnDtmfEventParam_duration_set)
+    __swig_setmethods__["flags"] = _pjsua2.OnDtmfEventParam_flags_set
+    __swig_getmethods__["flags"] = _pjsua2.OnDtmfEventParam_flags_get
+    if _newclass:
+        flags = _swig_property(_pjsua2.OnDtmfEventParam_flags_get, _pjsua2.OnDtmfEventParam_flags_set)
+
+    def __init__(self):
+        this = _pjsua2.new_OnDtmfEventParam()
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _pjsua2.delete_OnDtmfEventParam
+    __del__ = lambda self: None
+OnDtmfEventParam_swigregister = _pjsua2.OnDtmfEventParam_swigregister
+OnDtmfEventParam_swigregister(OnDtmfEventParam)
 
 class OnCallTransferRequestParam(_object):
     __swig_setmethods__ = {}
@@ -9398,6 +9526,9 @@ class Call(_object):
     def onCallSdpCreated(self, prm):
         return _pjsua2.Call_onCallSdpCreated(self, prm)
 
+    def onStreamPreCreate(self, prm):
+        return _pjsua2.Call_onStreamPreCreate(self, prm)
+
     def onStreamCreated(self, prm):
         return _pjsua2.Call_onStreamCreated(self, prm)
 
@@ -9406,6 +9537,9 @@ class Call(_object):
 
     def onDtmfDigit(self, prm):
         return _pjsua2.Call_onDtmfDigit(self, prm)
+
+    def onDtmfEvent(self, prm):
+        return _pjsua2.Call_onDtmfEvent(self, prm)
 
     def onCallTransferRequest(self, prm):
         return _pjsua2.Call_onCallTransferRequest(self, prm)
@@ -10210,6 +10344,10 @@ class MediaConfig(PersistentObject):
     __swig_getmethods__["jbMax"] = _pjsua2.MediaConfig_jbMax_get
     if _newclass:
         jbMax = _swig_property(_pjsua2.MediaConfig_jbMax_get, _pjsua2.MediaConfig_jbMax_set)
+    __swig_setmethods__["jbDiscardAlgo"] = _pjsua2.MediaConfig_jbDiscardAlgo_set
+    __swig_getmethods__["jbDiscardAlgo"] = _pjsua2.MediaConfig_jbDiscardAlgo_get
+    if _newclass:
+        jbDiscardAlgo = _swig_property(_pjsua2.MediaConfig_jbDiscardAlgo_get, _pjsua2.MediaConfig_jbDiscardAlgo_set)
     __swig_setmethods__["sndAutoCloseTime"] = _pjsua2.MediaConfig_sndAutoCloseTime_set
     __swig_getmethods__["sndAutoCloseTime"] = _pjsua2.MediaConfig_sndAutoCloseTime_get
     if _newclass:

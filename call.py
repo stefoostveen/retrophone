@@ -40,8 +40,10 @@ class Call(pj.Call):
                 am = pj.AudioMedia.typecastFromMedia(m)
                 # connect ports
                 #todo: AttributeError: 'builtin_function_or_method' object has no attribute 'audDevManager' on the pi
-                pj.Endpoint.instance.audDevManager().getCaptureDevMedia().startTransmit(am)
-                am.startTransmit(pj.Endpoint.instance.audDevManager().getPlaybackDevMedia())
+
+                print("[CALL] Transmitting media")
+                pj.Endpoint_instance().audDevManager().getCaptureDevMedia().startTransmit(am)
+                am.startTransmit(pj.Endpoint_instance().audDevManager().getPlaybackDevMedia())
 
                 # if mi.status == pj.PJSUA_CALL_MEDIA_REMOTE_HOLD and not self.onhold:
                 #     self.chat.addMessage(None, "'%s' sets call onhold" % (self.peerUri))

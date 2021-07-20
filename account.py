@@ -31,7 +31,7 @@ class Account(pj.Account):
         self.call = cl.Call(self, call_id=prm.callId, callbacks=self.callbacks)
         op = pj.CallOpParam()
         op.statusCode = pj.PJSIP_SC_RINGING
-        self.call.answer(op)
+        self.call.answer(op) #todo: answers code=0 instead of code=180, segmentation fault, bad_alloc, media?
         self.subscribe(self.call_ended, cme.CM_CALL_ENDED)
         self.notify(cme.CM_CALL_INCOMING, prm=prm, info=self.call.getInfo())
 
