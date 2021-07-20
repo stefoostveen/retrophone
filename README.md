@@ -1,5 +1,6 @@
 # RetroPhone
-This project converts a raspberry pi rotary phone into a sip client
+This project converts a raspberry pi rotary phone into a sip client. 
+The specific phone is a Heemaf type 1955 bakelite rotary phone, produced for the dutch PTT.
 
 ## Installation instructions
 
@@ -61,9 +62,12 @@ This project converts a raspberry pi rotary phone into a sip client
 
     `source venv/bin/activate`
 
-9. Install the other required packages
+9. Install the other required packages and, depending on the build platform, copy pjsua2 from the swig build location to the venv.
 
     `pip install -r requirements.txt`
+   
+    `cp ./pjproject/pjsip-apps/src/swig/python/build/lib.linux-armv7l-3.7/* ./retrophone/venv/lib/python3.7/site-packages/
+`
 
 10. Run the project
 

@@ -55,23 +55,29 @@ class App:
         scene = scn.Scene()
         scene.add_animation("app_remove_power", picture_duration=100)
         self.displaymgr.set_scene(scene)
+        time.sleep(1)
 
     def registration_complete(self, event):
         if event.code == 403:
-            scene = scn.Scene()
-            scene.add_animation("reg_perm_fail")
-            self.displaymgr.set_scene(scene)
+            rpf_scene = scn.Scene()
+            rpf_scene.add_animation("reg_perm_fail", picture_duration=1000)
+            rpf_scene.add_text(str(event.code)+": "+str(event.reason))
+            self.displaymgr.set_scene(rpf_scene)
             scene = scn.FaultScene("Wrong username or password supplied. Visit "+self.server[0] + self.server[1] + " to resolve.")
-            self.displaymgr.show_scene(scene)
+            self.displaymgr.flash_scene(scene)
         elif event.code == 200:
             if not self.has_ever_registered:
                 self.has_ever_registered = True
                 self.displaymgr.set_home_screen()
                 scene = scn.SuccessScene("Connected")
-                self.displaymgr.show_scene(scene)
+                self.displaymgr.flash_scene(scene)
         else:
-            scene = scn.FaultScene("Unknown connection error. Visit "+self.server[0] + self.server[1] + " to resolve.")
-            self.displaymgr.show_scene(scene)
+            rpf_scene = scn.Scene()
+            rpf_scene.add_animation("reg_perm_fail", picture_duration=1000)
+            rpf_scene.add_text(str(event.code)+": "+str(event.reason))
+            self.displaymgr.set_scene(rpf_scene)
+            scene = scn.FaultScene("Connection error. Visit "+self.server[0] + self.server[1] + " to resolve.")
+            self.displaymgr.flash_scene(scene)
 
     def hook_event(self, event):
         # end everything if hook is thrown on
@@ -82,6 +88,9 @@ class App:
         else:
             # hook is picked up. Answer call if exists or play dial tone if registered
             if not self.callmgr.account.call and self.callmgr.account.isValid():
+                cdn_scene = scn.Scene()
+                cdn_scene.add_animation("call_dial_now")
+                self.displaymgr.set_scene(cdn_scene)
                 self.allow_dialing(True)
             else:
                 self.callback_queue.put(self.callmgr.accept_call)
@@ -108,7 +117,7 @@ class App:
     def call_declined(self, event):
         scene = scn.Scene()
         scene.add_text("Call declined",picture_duration=2000)
-        self.displaymgr.show_scene(scene)
+        self.displaymgr.flash_scene(scene)
         self.displaymgr.set_home_screen()
         self.ringer.stop()
 

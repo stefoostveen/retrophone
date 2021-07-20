@@ -47,7 +47,7 @@ class DisplayManager:
             self.disp.display()
             time.sleep(picture.duration/1000)
 
-    def show_scene(self, scene):
+    def flash_scene(self, scene):
         self.scene_queue.append(scene)
 
     def set_home_screen(self):
